@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import MoviesCategory from './MoviesCategory.vue';
+
+
 </script>
 
 <template>
@@ -8,5 +11,6 @@
         <img src="../assets/logo.jpg" class="h-13 w-20">
       </div>
     </div>
+    <MoviesCategory/>
   </header>
 </template>

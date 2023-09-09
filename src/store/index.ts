@@ -35,6 +35,7 @@ export const useMoviesStore = defineStore('movies', {
           throw new Error('Failed to fetch movie categories');
         }
         const data = await response.json();
+        
         this.categories = data.genres;
       } catch (error) {
         console.error('Error fetching movie categories:', error);

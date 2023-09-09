@@ -1,10 +1,10 @@
 <template>
     <div class="bg-cover bg-center min-h-screen">
     <!-- Afficher une image de film au hasard en arrière-plan -->
-    <div :style="{ backgroundImage: `url('${getRandomMovieImageUrl()}')` }" class="w-full h-screen bg-cover bg-center mb-8">
+    <div  class="w-full h-screen bg-cover bg-center mb-8">
 
       <!-- Contenu de la page d'accueil -->
-      <div class="container mx-auto pt-20 text-white text-center">
+      <div class="container mx-auto pt-20 text-black text-center">
         <h1 class="text-4xl font-semibold mb-4">Bienvenue sur notre site de films</h1>
         <p class="text-lg mb-8">Découvrez les derniers films du moment</p>
         <!-- Liste des 4 films du moment -->
@@ -31,8 +31,13 @@
   MovieStore.fetchLatestMovies();
   
   const getMoviePosterUrl = (movie) => {
-    return `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
-  };
+  if (movie && movie.backdrop_path) {
+    console.log(movie.backdrop_path);
+    return `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`;
+  } else {
+    return ''; // ou une URL par défaut si backdrop_path n'est pas défini
+  }
+};
   
   const latestMovies = computed(() => {
     // Vous pouvez trier les films comme vous le souhaitez, par exemple, par date de sortie.

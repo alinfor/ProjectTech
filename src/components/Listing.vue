@@ -20,6 +20,10 @@
           />
         </div>
       </div>
+      <!-- Afficher le message s'il n'y a pas de films -->
+      <div v-else>
+        {{ noMoviesMessage }}
+      </div>
     </div>
   </template>
   
@@ -33,6 +37,7 @@
   MovieStore.fetchLatestMovies();
   
   const selectedCategory = ref('');
+  let noMoviesMessage = ''; // Initialisez une variable pour le message
   const filteredMovies = computed(() => {
 
     if (!selectedCategory.value) {
@@ -40,7 +45,14 @@
     }
   
     const categoryId = parseInt(selectedCategory.value);
-    return MovieStore.movies.filter((movie) => movie.genre_ids.includes(categoryId));
+    const filteredMovies = MovieStore.movies.filter((movie) => movie.genre_ids.includes(categoryId));
+
+
+    if (filteredMovies.length === 0) {
+    noMoviesMessage = 'Aucun film dans cette catégorie.';
+    }
+
+    return filteredMovies
   });
   
   const selectedCategoryName = computed(() => {

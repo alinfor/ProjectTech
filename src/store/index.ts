@@ -10,6 +10,7 @@ export const useMoviesStore = defineStore('movies', {
   state: () => ({
     movies: [] as Movie[], // Tableau pour stocker les films
     categories: [] as Category[], // Tableau pour stocker les catégories de films
+    favorites: [] as Movie[], // Tableau pour stocker les film favorie
   }),
 
   actions: {
@@ -41,6 +42,13 @@ export const useMoviesStore = defineStore('movies', {
         console.error('Error fetching movie categories:', error);
       }
     },
+    addToFavorites(favorie: MovieFav) {
+      //  Action pour verifier si le film est déja ajouter
+      console.log("new fav");
+      console.log(favorie);
+
+        this.favorites.push(favorie);
+    },
   },
 });
 
@@ -52,7 +60,13 @@ interface Movie {
   poster_path: string;
   // Ajoutez d'autres propriétés de film si nécessaire
 }
-
+interface MovieFav {
+  altText?:string;
+  description?:string;
+  imageUrl?:string;
+  title?: string;
+  // Ajoutez d'autres propriétés de film si nécessaire
+}
 interface Category {
   id: number;
   name: string;

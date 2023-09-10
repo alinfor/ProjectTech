@@ -11,6 +11,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
           <BaseCard
             v-for="movie in latestMovies"
+            :movies="movie"
             :key="movie.id"
             :title="movie.title"
             :description="movie.overview"

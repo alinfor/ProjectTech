@@ -8,6 +8,7 @@
           :title="favorie.title"
           :description="favorie.overview"
           :imageUrl="favorie.imageUrl"
+          :isFavorite="favorie.isFavorite"
         />
       </div>
     </div>

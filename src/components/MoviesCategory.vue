@@ -13,7 +13,7 @@
   
 <script setup>
     import { useMoviesStore } from '@/store/index';
-import { ref } from 'vue';
+    import { ref } from 'vue';
     const MovieStore = useMoviesStore();
     MovieStore.fetchMoviesCategories();
     const selectedCategory = ref('');

@@ -43,12 +43,39 @@ export const useMoviesStore = defineStore('movies', {
       }
     },
     addToFavorites(favorie: MovieFav) {
-      //  Action pour verifier si le film est déja ajouter
-      console.log("new fav");
-      console.log(favorie);
-
+      
+      // Vérifiez si le film est déjà dans la liste des favoris
+      const isAlreadyFavorite = this.favorites.some((fav) => fav.title === favorie.title);
+      
+      if (!isAlreadyFavorite) {
+        // Ajoutez le film à la liste des favoris s'il n'est pas déjà présent
         this.favorites.push(favorie);
+        
+        // Mettez à jour l'état isFav du film correspondant dans la liste movies
+        const movieIndex = this.movies.findIndex((movie) => movie.title === favorie.title);
+        if (movieIndex !== -1) {
+          this.movies[movieIndex].isFav = true;
+        }
+      }
     },
+  
+    removeFavorites(favorie: MovieFav) {
+      // Vérifiez s'il y a un seul film favori à supprimer
+      if (this.favorites.length === 1 && this.favorites[0].title === favorie.title) {
+        this.favorites = [];
+      } else {
+        // Supprimez le film de la liste des favoris
+        this.favorites = this.favorites.filter((fav) => fav.title !== favorie.title);
+      }
+    
+      // Parcourez la liste des films et mettez à jour leur état isFav
+      this.movies.forEach((movie) => {
+        if (movie.title === favorie.title) {
+          movie.isFav = false;
+        }
+      });
+    },
+    
   },
 });
 
@@ -58,6 +85,7 @@ interface Movie {
   title: string;
   overview: string;
   poster_path: string;
+  isFav: Boolean;
   // Ajoutez d'autres propriétés de film si nécessaire
 }
 interface MovieFav {
@@ -65,6 +93,7 @@ interface MovieFav {
   description?:string;
   imageUrl?:string;
   title?: string;
+  isFav?: Boolean;
   // Ajoutez d'autres propriétés de film si nécessaire
 }
 interface Category {
